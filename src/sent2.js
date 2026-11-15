@@ -33,13 +33,13 @@ function makeSent(cfg){
       else if(q && path.length === 2){ const ks = P[r.si].t[r.ti].k.filter(fHit), k = ks.length; x.append(el('span', 'c' + (k ? ' more-c' : ''), k ? plural(k, 'fact') + (k === 1 ? ' mentions it' : ' mention it') : 'its title mentions it'));
         if(k){ const d = el('span', 'hits'); ks.forEach(f => { const r = el('span', 'hl'); r.append('“', mark(f.b), '”'); d.append(r); }); x.append(d); } }
       else x.append(el('span', 'c', r.c));
-      x.onclick = () => choose(x, r.p); list.appendChild(x); if(!reduced && !QRY && n < 18) setTimeout(() => SND.tick(.9 + n*.025), n*20); });
+      x.onclick = () => choose(x, r.p); list.appendChild(x); if(!reduced && !QRY && n < 18) setTimeout(() => SND.tick(.9 + n*.025), 60 + n*30); });
     B.appendChild(list); }
   function facts(){ const t = P[path[0]].t[path[2]], q = QRY && totalHits() ? QRY : '', ks = shownFacts(t), only = q && ks.length < t.k.length;
     const f = el('div', 'facts'), word = $('find').value.trim();
     B.appendChild(el('div', 'lay', only ? ks.length + ' of ' + plural(t.k.length, 'fact') + (ks.length === 1 ? ' mentions “' : ' mention “') + word + '”' : q && !t.k.some(fHit) ? 'its title mentions “' + word + '”; none of its facts do' : plural(t.k.length, 'fact')));
     ks.forEach((k, n) => { const x = factEl(k, n); x.style.setProperty('--d', '0s'); if(q) markIn(x); f.appendChild(x); });
-    B.appendChild(f); if(!reduced && !QRY) ks.forEach((k,i) => setTimeout(() => SND.tick(1.05 + i*.05), 30 + i*35)); }
+    B.appendChild(f); if(!reduced && !QRY) ks.forEach((k,i) => setTimeout(() => SND.tick(1.05 + i*.05), 110 + i*90)); }
   function markIn(x){ x.querySelectorAll('.say .tx,.q').forEach(s => { if(s.closest('.more')) return; const txt = s.textContent; s.textContent = ''; s.append(mark(txt)); }); }
   function filter(q){ QRY = q; head(false); body(); if(!reduced && q) SND.tick(1.6); fhint(''); }
   function enter(){ const first = B.querySelector('.ch'); if(first) first.click(); }
@@ -47,15 +47,15 @@ function makeSent(cfg){
     const src = x.querySelector('.t'), rc = src.getBoundingClientRect(), fs = parseFloat(getComputedStyle(src).fontSize);
     /* everything else drops away, rippling out from the one you picked */
     const all = [...B.querySelectorAll('.ch,.lay')], me = all.indexOf(x);
-    all.forEach((o, i) => { if(o === x) return; o.animate([{opacity: getComputedStyle(o).opacity, transform: 'none'}, {opacity: 0, transform: 'translateY(10px)'}], {duration: 170, delay: Math.min(120, Math.abs(i - me)*8), easing: 'ease-in', fill: 'forwards'}); });
+    all.forEach((o, i) => { if(o === x) return; o.animate([{opacity: getComputedStyle(o).opacity, transform: 'none'}, {opacity: 0, transform: 'translateY(10px)'}], {duration: 240, delay: Math.min(170, Math.abs(i - me)*11), easing: 'ease-in', fill: 'forwards'}); });
     x.querySelectorAll('.c,.hits').forEach(e => e.style.opacity = 0);
     const fly = el('div', 'fly', src.textContent); Object.assign(fly.style, {left: rc.left + 'px', top: rc.top + 'px', fontSize: fs + 'px'}); document.body.appendChild(fly); src.style.visibility = 'hidden';
     S.scrollTo({top: 0, behavior: reduced ? 'auto' : 'smooth'});
     setTimeout(() => { path = p; const tw = head(true), tr = tw.getBoundingClientRect(), tfs = parseFloat(getComputedStyle(tw).fontSize), now = fly.getBoundingClientRect();
       const k = tfs / fs, dx = tr.left - now.left, dy = tr.top - now.top;
       const a = fly.animate([{transform: 'none'}, {transform: `translate(${dx*.55}px,${dy*.55 - 26}px) scale(${1 + (k - 1)*.6})`, offset: .55}, {transform: `translate(${dx}px,${dy}px) scale(${k})`}],
-        {duration: reduced ? 1 : 360, easing: 'cubic-bezier(.5,0,.2,1)', fill: 'forwards'});
-      a.onfinish = () => { tw.style.opacity = ''; tw.classList.add('land'); fly.remove(); SND.tick(.75); body(); busy = false; }; }, reduced ? 0 : 130); }
+        {duration: reduced ? 1 : 520, easing: 'cubic-bezier(.5,0,.2,1)', fill: 'forwards'});
+      a.onfinish = () => { tw.style.opacity = ''; tw.classList.add('land'); fly.remove(); SND.tick(.75); body(); busy = false; }; }, reduced ? 0 : 190); }
   function back(i){ if(busy) return; SND.tick(.8); path = path.slice(0, i); head(false); body(); S.scrollTop = 0; }
   addEventListener('keydown', e => { if(S.classList.contains('on') && e.key === 'Escape' && e.target.tagName !== 'INPUT' && path.length) back(path.length - 1); });
   /* branch mode: fine stems run from the last word of the heading down a trunk, along a rail, and down each column's gutter to its choices, so no line ever crosses a word */

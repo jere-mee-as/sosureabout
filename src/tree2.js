@@ -23,7 +23,9 @@ const OL = (() => {
             u.t.forEach(ti => { if(q && !tHit(si, ti)) return; const t = s.t[ti], k2 = key(si, gi, ti), ks = shownFacts(t);
               const [b2, o2] = row(t.t, q && ks.length < t.k.length ? ks.length + ' of ' + plural(t.k.length, 'fact') : plural(t.k.length, 'fact'), k2, 2); b2.dataset.k = k2; const w2 = el('div', 'onode'); w2.appendChild(b2);
               if(o2){ const kid2 = el('div', 'okids ofacts' + (fresh === k2 ? ' fresh' : '')); ks.forEach((kf, n) => { const x = factEl(kf, n); x.style.setProperty('--d', '0s');
-                  if(q) x.querySelectorAll('.say .tx').forEach(e => { const tx = e.textContent; e.textContent = ''; e.append(mark(tx)); }); kid2.appendChild(x); }); w2.appendChild(kid2); }
+                  if(q) x.querySelectorAll('.say .tx').forEach(e => { const tx = e.textContent; e.textContent = ''; e.append(mark(tx)); }); kid2.appendChild(x); }); w2.appendChild(kid2);
+                /* facts drop in one by one, and each one bloops as it lands */
+                if(fresh === k2 && !reduced) ks.slice(0, 14).forEach((_, n) => setTimeout(() => SND.play('pop', 1 + n*.03), 40 + n*70)); }
               kid1.appendChild(w2); }); w1.appendChild(kid1); }
           kids.appendChild(w1); }); w0.appendChild(kids); }
       list.appendChild(w0); });
@@ -53,10 +55,10 @@ const SM = (() => {
     for(let d = 0; d < 4; d++){ const its = items(d); const c = el('div', 'scol c' + d); if(!its.length){ box.appendChild(c); continue; }
       its.forEach((x, n) => { if(d < 3){ const b = el('button', 'sit'); b.style.setProperty('--n', n); const t = el('span', 'st'); t.append(mark(x.t)); b.append(t);
           b.dataset.i = x.i; if(sel[d] === x.i) b.classList.add('on'); if(sel[d] != null && sel[d] !== x.i) b.classList.add('off');
-          b.onclick = () => { SND.tick([.85, 1, 1.15][d]); if(sel[d] === x.i){ sel[d] = null; } else sel[d] = x.i; for(let k = d + 1; k < 3; k++) sel[k] = null; ki = null; render(); }; c.appendChild(b); }
+          b.onclick = () => { if(sel[d] === x.i){ sel[d] = null; } else sel[d] = x.i; for(let k = d + 1; k < 3; k++) sel[k] = null; ki = null; render(); }; c.appendChild(b); }
         else { const f = factEl(x.k, n); f.style.setProperty('--d', '0s'); if(QRY) f.querySelectorAll('.say .tx').forEach(e => { const tx = e.textContent; e.textContent = ''; e.append(mark(tx)); }); c.appendChild(f); } });
       if(d > 0 && (grewAt < 0 ? false : d > grewAt)) c.classList.add('grow'); box.appendChild(c); }
-    place(); wire(grewAt); talk();
+    place(); wire(grewAt); talk(); patter();
     const last = cols().filter(c => c.children.length).pop(); if(last && grewAt >= 0) setTimeout(() => { const r = last.getBoundingClientRect(); if(r.right > innerWidth - 20) S.scrollTo({left: S.scrollLeft + r.right - innerWidth + 40, behavior: reduced ? 'auto' : 'smooth'}); }, 40); }
   /* each column sits centred on the word it grew from */
   function place(){ const cs = cols(), top = box.getBoundingClientRect().top; cs.forEach(c => c.style.marginTop = '0px');
@@ -69,10 +71,17 @@ const SM = (() => {
         const p = document.createElementNS(NSs, 'path'); p.setAttribute('d', `M${x0.toFixed(1)} ${y0.toFixed(1)} C${mx.toFixed(1)} ${y0.toFixed(1)} ${mx.toFixed(1)} ${y1.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`);
         if(selKid && k !== selKid) p.classList.add('off'); svg.appendChild(p);
         if(!reduced && grewAt >= 0 && d > grewAt){ const L = p.getTotalLength(); p.style.strokeDasharray = L + ' ' + (L + 4); p.style.strokeDashoffset = L + 2; p.getBoundingClientRect();
-          p.style.transition = `stroke-dashoffset .38s cubic-bezier(.5,0,.2,1) ${n*.02}s, opacity .3s`; p.style.strokeDashoffset = 0; } }); } }
+          p.style.transition = `stroke-dashoffset .55s cubic-bezier(.5,0,.2,1) ${n*.03}s, opacity .4s`; p.style.strokeDashoffset = 0; } }); } }
   function talk(){ say.innerHTML = ''; const w = []; if(sel[0] != null) w.push(P[sel[0]].n); if(sel[1] != null) w.push(P[sel[0]].u[sel[1]].n); if(sel[2] != null) w.push(P[sel[0]].t[sel[2]].t);
     if(QRY){ say.append('Searching for “' + $('find').value.trim() + '”' + (w.length ? ' in ' + w.join(', ') : '')); return; }
-    say.append('So you’re sure about' + (w.length ? ' ' : '…')); w.forEach((x, i) => { say.append(el('b', null, x), i === w.length - 1 ? '?' : ', '); }); }
+    say.append('So you’re sure about' + (w.length ? ' ' : '…')); w.forEach((x, i) => { const b = el('b', 'back1', x); b.setAttribute('role', 'button'); b.tabIndex = 0; b.title = 'Step back to here';
+      /* tapping a word in the sentence steps back to that choice, which is the way home on a phone where earlier columns scroll away */
+      b.onclick = () => { for(let k = i; k < 3; k++) sel[k] = null; ki = null; render(); S.scrollTo({left: 0, behavior: reduced ? 'auto' : 'smooth'}); };
+      say.append(b, i === w.length - 1 ? '?' : ', '); }); }
+  /* the sound belongs to the list, not the click: each new item that drops in pops, a little higher than the last */
+  function patter(){ if(reduced) return; const g = cols().filter(c => c.classList.contains('grow') && c.children.length); if(!g.length) return;
+    const c = g[0], n = Math.min(c.children.length, 12), d = cols().indexOf(c);
+    for(let i = 0; i < n; i++) setTimeout(() => SND.tick([.85, .95, 1.05, 1.15][d] + i*.035), 280 + i*30); }
   function filter(q){ QRY = q; for(let d = 0; d < 3; d++){ if(sel[d] != null && !items(d).some(x => x.i === sel[d])) for(let k = d; k < 3; k++) sel[k] = null; } drawn = ''; render(); }
   addEventListener('resize', () => { if(S.classList.contains('on')){ place(); wire(-1); } });
   return {start(){ render(); }, open(p){ sel = [p[0], p[1], p[2]]; drawn = ''; render(); }, filter, enter(){}, shown(){ ph('search…'); place(); wire(-1); }};
