@@ -205,6 +205,18 @@ function show(m){ if(m) mode = m; fhint(''); try { localStorage.setItem('uf-layo
   const sw = $('sw'); sw.innerHTML = ''; [['outl', 'Outline'], ['sent', 'Sentence'], ['stem', 'Stems']].forEach(([k, n]) => { const b = el('button', 'lic'); b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + LICON[k] + '</svg>'; b.setAttribute('aria-label', n); b.title = n; b.setAttribute('aria-pressed', String(k === real())); b.onclick = () => show(k); sw.appendChild(b); }); }
 const LICON = {outl: '<path d="M3 5h18M8 12h13M8 19h13M4.5 8v11M4.5 12H6.5M4.5 19H6.5"/>', sent: '<path d="M3 6.5h18M3 12h18M3 17.5h11"/>', stem: '<path d="M3 12h4M7 12c4 0 5-6.5 9-6.5h5M7 12h14M7 12c4 0 5 6.5 9 6.5h5"/>'};
 let lastSmall = small(); addEventListener('resize', () => { if(small() !== lastSmall){ lastSmall = small(); show(); } });
+/* =================== the browser's back button steps back one layer =================== */
+/* while you're below the top layer (or searching) there is one extra history entry; back pops it, we step up a layer, and put it back if there's still a layer above. At the top, back leaves the page as usual. */
+var HPOP = false;
+function HIST(){ if(HPOP) return; try { const M = MOD[real()]; if((QRY || M.depth() > 0) && !(history.state && history.state.jg)) history.pushState({jg: 1}, ''); } catch(e){} }
+addEventListener('popstate', e => { if(e.state && e.state.jg) return; let M;
+  try { M = MOD[real()]; HPOP = true;
+    if(QRY){ setQ(''); if(typeof home === 'function') home(); }
+    else if(M.depth() > 0) M.up();
+    else { HPOP = false; history.back(); return; }
+  } catch(err){} finally { HPOP = false; }
+  try { if(QRY || M.depth() > 0) history.pushState({jg: 1}, ''); } catch(err){} });
+{ const _show = show; show = function(m){ _show(m); HIST(); }; }
 T.start(); OL.start(); SM.start(); show();
 const IDX = []; P.forEach((s,si) => s.u.forEach((u,gi) => u.t.forEach(ti => IDX.push({p:[si,gi,ti], n:s.t[ti].t, low:nrm(s.t[ti].t), k:s.t[ti].k.map(k => nrm(k.b + ' ' + k.f))}))));
 /* anywhere-search, used when the layer you're on has nothing by that name */
