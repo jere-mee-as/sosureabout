@@ -6,14 +6,14 @@ const OL = (() => {
     if(QRY){ H.append('Searching for “' + raw + '”'); const g = el('button', 'goback', '← go back'); g.onclick = () => { SND.tick(.8); setQ(''); }; H.append(g); }
     else H.append('So you’re sure about…'); }
   const mark = txt => { const f = document.createDocumentFragment(), i = QRY ? nrm(txt).indexOf(QRY) : -1; if(i < 0){ f.append(txt); return f; } f.append(txt.slice(0, i), el('mark', null, txt.slice(i, i + QRY.length)), txt.slice(i + QRY.length)); return f; };
-  function row(label, count, k, depth, onOpen){ const isOpen = searching() && depth < 2 ? !open.has('x' + k) : open.has(k);
+  function row(label, count, k, depth, onOpen){ const isOpen = open.has(k);
     const b = el('button', 'orow d' + depth + (isOpen ? ' open' : '')); b.append(el('span', 'car', isOpen ? '−' : '+')); const t = el('span', 'ot'); t.append(mark(label)); b.append(t); if(count) b.append(el('span', 'oc', count));
-    b.onclick = () => { SND.tick(isOpen ? .85 : 1.15); const kk = searching() && depth < 2 ? 'x' + k : k; open.has(kk) ? open.delete(kk) : open.add(kk); fresh = isOpen ? null : k; render(); };
+    b.onclick = () => { SND.tick(isOpen ? .85 : 1.15); open.has(k) ? open.delete(k) : open.add(k); fresh = isOpen ? null : k; render(); };
     return [b, isOpen]; }
   const searching = () => !!(QRY && totalHits());
-  /* while searching, subjects and parts start open so every matching branch shows at once; topics stay closed until you open them */
+  /* searching culls what's showing but opens nothing; whatever you had open stays open if it still matches */
   function render(){ head(); B.innerHTML = ''; const q = searching(); const list = el('div', 'otree');
-    if(QRY && !q) list.appendChild(el('div', 'lay', 'nothing mentions “' + $('find').value.trim() + '”'));
+    if(QRY && !q){ list.appendChild(el('div', 'lay', 'nothing mentions “' + $('find').value.trim() + '”')); B.appendChild(list); return; }
     P.forEach((s, si) => { const sh = q ? sHits(si) : null; if(q && !sh.length) return; const k0 = key(si);
       const [b0, o0] = row(s.n, q ? plural(sh.length, 'topic') : plural(s.u.length, 'part'), k0, 0); const w0 = el('div', 'onode'); w0.appendChild(b0);
       if(o0){ const kids = el('div', 'okids' + (fresh === k0 ? ' fresh' : ''));
@@ -31,8 +31,8 @@ const OL = (() => {
     [list, ...list.querySelectorAll('.okids:not(.ofacts)')].forEach(c => c.classList.toggle('has', [...c.children].some(n => n.querySelector(':scope > .orow.open'))));
     B.appendChild(list); fresh = null; }
   const ctl = () => { const c = el('button', 'ocollapse', 'close all'); c.onclick = () => { open.clear(); SND.tick(.8); render(); }; return c; };
-  function filter(q){ QRY = q; [...open].filter(k => k[0] === 'x').forEach(k => open.delete(k)); render(); if(!reduced && q) SND.tick(1.6); }
-  function openPath(p){ open.add(key(p[0])); open.add(key(p[0], p[1])); open.add(key(p[0], p[1], p[2])); open.delete('x' + key(p[0])); open.delete('x' + key(p[0], p[1])); render();
+  function filter(q){ QRY = q; render(); if(!reduced && q) SND.tick(1.6); }
+  function openPath(p){ open.add(key(p[0])); open.add(key(p[0], p[1])); open.add(key(p[0], p[1], p[2])); render();
     const b = B.querySelector(`[data-k="${key(p[0], p[1], p[2])}"]`); if(b) b.scrollIntoView({block: 'center', behavior: reduced ? 'auto' : 'smooth'}); }
   return {start(){ render(); S.querySelector('.wrap').insertBefore(ctl(), B); }, open: openPath, filter, enter(){}, shown(){ ph('search…'); }};
 })();
@@ -42,7 +42,7 @@ const SM = (() => {
   const S = $('stem'), box = $('scols'), svg = $('ssvg'), say = $('ssay'); const NSs = 'http://www.w3.org/2000/svg';
   let sel = [null, null, null], ki = null, drawn = '';
   const cols = () => [...box.querySelectorAll('.scol')];
-  function items(d){ const q = QRY && totalHits();
+  function items(d){ if(QRY && !totalHits()) return []; const q = !!QRY;
     if(d === 0) return P.map((s, si) => ({t: s.n, i: si})).filter(x => !q || sHits(x.i).length);
     if(d === 1) return sel[0] == null ? [] : P[sel[0]].u.map((u, gi) => ({t: u.n, i: gi})).filter(x => !q || gHits(sel[0], x.i).length);
     if(d === 2) return sel[1] == null ? [] : P[sel[0]].u[sel[1]].t.map(ti => ({t: P[sel[0]].t[ti].t, i: ti})).filter(x => !q || tHit(sel[0], x.i));

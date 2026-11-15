@@ -28,6 +28,9 @@ a{color:inherit;text-decoration-color:var(--dim);text-underline-offset:3px}
 #board{position:fixed;top:54px;right:16px;z-index:25;background:var(--bg);border:1px solid var(--faint);border-radius:10px;padding:14px 16px 6px;width:min(30em,calc(100vw - 32px));font-size:13.5px;display:none}#board.on{display:block}
 #board .brow{display:flex;gap:12px;align-items:baseline;margin-bottom:12px}#board .bl{width:5.2em;flex:none;color:var(--dim)}#board .chips{display:flex;flex-wrap:wrap;gap:4px 12px}
 #board .chip{color:var(--dim)}#board .chip:hover{color:var(--ink)}#board .chip[aria-pressed=true]{color:var(--ink);border-bottom:1px solid var(--ink)}#board .tg{color:var(--ink);width:5.2em;flex:none}#board input[type=range]{flex:1;accent-color:var(--ink)}
+.nohits #crypt .row{opacity:0;pointer-events:none}
+.nohit{display:none;position:absolute;left:28px;top:84px;z-index:6;font-size:26px;color:var(--dim)}.nohit button{display:block;font-size:15px;margin-top:10px;color:var(--dim)}.nohit button:hover{color:var(--ink)}.nohits .nohit{display:block}.nohits #wheel .hint,.nohits #fh,
+.nohits #wheel .rot,.nohits #wheel .say1,.nohits #crypt .pre,.nohits #crypt .cf,.nohits #crypt .chint{visibility:hidden}
 #fh{position:fixed;top:50px;right:20px;z-index:21;color:var(--dim);font-size:13px;max-width:24em;text-align:right;opacity:0;transition:opacity .2s}#fh.on{opacity:1}
 #find{width:11em}
 #bar svg{width:15px;height:15px;display:block}
@@ -143,12 +146,12 @@ a{color:inherit;text-decoration-color:var(--dim);text-underline-offset:3px}
 <div id="fh"></div><div id="themes" role="dialog" aria-label="Themes"></div><div class="credit"><img alt="" src="@@JERE@@">made by <b>Jere</b></div>
 
 <section class="stage" id="wheel" aria-label="Wheel">
-  <div class="say1" id="wsay"></div>
+  <div class="say1" id="wsay"></div><div class="nohit">Nothing mentions that. <button class="nhback">← go back</button></div>
   <div class="rot"><svg id="wsvg"></svg><div class="r0"></div><div class="r1"></div><div class="r2"></div></div>
   <div class="hint" id="whint">scroll or drag a ring · tap the bold topic to read</div>
   <div class="panel" id="wread"></div>
 </section>
-<section class="stage" id="crypt" aria-label="Cryptex"><div class="wrap"><div class="pre">So you’re sure about</div><div class="row" id="crow"></div><div class="chint" id="chint">spin a drum · the middle row is your question</div><div class="cf" id="cf"></div></div></section>
+<section class="stage" id="crypt" aria-label="Cryptex"><div class="nohit">Nothing mentions that. <button class="nhback">← go back</button></div><div class="wrap"><div class="pre">So you’re sure about</div><div class="row" id="crow"></div><div class="chint" id="chint">spin a drum · the middle row is your question</div><div class="cf" id="cf"></div></div></section>
 <section class="stage sl" id="sent" aria-label="Sentence"><div class="wrap"><div class="steps" id="steps"></div><h1 id="sh"></h1><div id="sb"></div></div></section>
 <section class="stage" id="outl" aria-label="Outline"><div class="wrap"><h1 id="oh"></h1><div id="ob"></div></div></section>
 <section class="stage" id="stem" aria-label="Stems"><div class="ssay" id="ssay"></div><div id="scols"><svg id="ssvg"></svg></div></section>
@@ -394,8 +397,9 @@ function jumpHint(){ const h = deep(QRY)[0]; jumpTo = h ? h.p : null; return h ?
 function jump(){ if(!jumpTo) return; const p = jumpTo; setQ(''); F.blur(); MOD[real()].open(p); }
 /* one search for the whole site: the words in the box are always the words doing the culling, in every layout */
 function applyQ(){ const M = MOD[real()]; if(M._q !== QRY){ M._q = QRY; M.filter(QRY); } }
-function setQ(raw){ F.value = raw; const q = nrm(raw.trim()); QRY = q.length > 1 ? q : ''; applyQ(); if(!QRY) fhint(''); }
+function setQ(raw){ F.value = raw; const q = nrm(raw.trim()); QRY = q.length > 1 ? q : ''; document.documentElement.classList.toggle('nohits', !!QRY && !totalHits()); applyQ(); if(!QRY) fhint(''); }
 const F = $('find');
+document.querySelectorAll('.nhback').forEach(b => b.onclick = () => { SND.tick(.8); setQ(''); });
 F.addEventListener('input', () => setQ(F.value));
 F.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); MOD[real()].enter(); } if(e.key === 'Escape'){ setQ(''); F.blur(); } });
 addEventListener('keydown', e => { if(e.key === '/' && e.target !== F){ e.preventDefault(); F.focus(); } });

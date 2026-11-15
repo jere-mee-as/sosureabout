@@ -26,7 +26,7 @@ function makeSent(cfg){
     else return facts();
     const total = rows.length;
     /* searching culls every layer to the places that mention it */
-    if(q) rows = rows.filter(r => r.h && r.h.length);
+    if(q) rows = rows.filter(r => r.h && r.h.length); else if(QRY) rows = [];
     B.appendChild(el('div', 'lay', q ? rows.length + ' of ' + plural(total, LAYER[path.length]) + (rows.length === 1 ? ' mentions “' : ' mention “') + $('find').value.trim() + '”' : QRY ? 'nothing mentions “' + $('find').value.trim() + '”' : plural(total, LAYER[path.length]) + (path.length ? ' in ' + words(path).slice(-1)[0] : '')));
     rows.forEach((r, n) => { const x = el('button', 'ch'); x.style.setProperty('--n', n); const t = el('span', 't'); t.append(mark(r.t)); x.append(t);
       if(q && r.h && r.h.length && path.length < 2) x.append(el('span', 'c more-c', plural(r.h.length, 'topic') + (r.h.length === 1 ? ' mentions it' : ' mention it')), where(r.si, r.h));
