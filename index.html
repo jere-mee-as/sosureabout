@@ -176,10 +176,10 @@ function factEl(k, i){ const b = el('button', 'fact'); b.style.setProperty('--n'
   /* the caveat: set off to the side under "But…", with the source underneath */
   const m = el('span', 'more'); m.append(el('span', 'but', 'But…'), el('span', 'lim', k.l));
   const sl = el('span', 'srcl', 'Source: '); const a = el('a', null, k.src); a.href = k.u; a.target = '_blank'; a.rel = 'noopener'; sl.appendChild(a); m.appendChild(sl);
-  /* the copy mark sits after the fact and fades in on hover; it copies the fact, its source and the link */
+  /* the copy mark sits after the fact and fades in on hover; it copies the popular line as a question, then the fact and its source */
   const say = el('span', 'say'); say.append(el('span', 'tx', k.f)); const cp = el('span', 'cp'); cp.setAttribute('role', 'button'); cp.tabIndex = 0; cp.title = 'Copy'; cp.setAttribute('aria-label', 'Copy this fact');
   cp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>';
-  const copy = e => { e.stopPropagation(); e.preventDefault(); try { navigator.clipboard.writeText(k.f + ' (' + k.src + ') ' + k.u).catch(() => {}); } catch(err){} cp.classList.add('ok'); SND.tick(1.5); setTimeout(() => cp.classList.remove('ok'), 1000); };
+  const copy = e => { e.stopPropagation(); e.preventDefault(); try { navigator.clipboard.writeText(k.b.replace(/[.?!…\s]+$/, '') + '?\n\n' + k.f + '\nSource: ' + k.src + ', ' + k.u).catch(() => {}); } catch(err){} cp.classList.add('ok'); SND.tick(1.5); setTimeout(() => cp.classList.remove('ok'), 1000); };
   cp.addEventListener('click', copy); cp.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') copy(e); }); say.append(cp);
   b.append(el('span', 'q', '“' + k.b + '”'), say, m); b.onclick = e => { if(e.target.closest('a,.cp')) return; b.classList.toggle('open'); }; return b; }
 const nrm = x => x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'");
