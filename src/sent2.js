@@ -48,7 +48,7 @@ function makeSent(cfg){
     /* everything else drops away, rippling out from the one you picked */
     const all = [...B.querySelectorAll('.ch,.lay')], me = all.indexOf(x);
     all.forEach((o, i) => { if(o === x) return; o.animate([{opacity: getComputedStyle(o).opacity, transform: 'none'}, {opacity: 0, transform: 'translateY(10px)'}], {duration: 240, delay: Math.min(170, Math.abs(i - me)*11), easing: 'ease-in', fill: 'forwards'}); });
-    x.querySelectorAll('.c,.hits').forEach(e => e.style.opacity = 0);
+    x.querySelectorAll('.c,.hits,.sg').forEach(e => { e.style.transition = 'opacity .2s'; e.style.opacity = 0; });
     const fly = el('div', 'fly', src.textContent); Object.assign(fly.style, {left: rc.left + 'px', top: rc.top + 'px', fontSize: fs + 'px'}); document.body.appendChild(fly); src.style.visibility = 'hidden';
     S.scrollTo({top: 0, behavior: reduced ? 'auto' : 'smooth'});
     setTimeout(() => { path = p; const tw = head(true), tr = tw.getBoundingClientRect(), tfs = parseFloat(getComputedStyle(tw).fontSize), now = fly.getBoundingClientRect();
