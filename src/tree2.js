@@ -23,7 +23,7 @@ const OL = (() => {
             u.t.forEach(ti => { if(q && !tHit(si, ti)) return; const t = s.t[ti], k2 = key(si, gi, ti), ks = shownFacts(t);
               const [b2, o2] = row(t.t, q && ks.length < t.k.length ? ks.length + ' of ' + plural(t.k.length, 'fact') : plural(t.k.length, 'fact'), k2, 2); b2.dataset.k = k2; const w2 = el('div', 'onode'); w2.appendChild(b2);
               if(o2){ const kid2 = el('div', 'okids ofacts' + (fresh === k2 ? ' fresh' : '')); ks.forEach((kf, n) => { const x = factEl(kf, n); x.style.setProperty('--d', '0s');
-                  if(q) x.querySelectorAll('.say').forEach(e => { const tx = e.textContent; e.textContent = ''; e.append(mark(tx)); }); kid2.appendChild(x); }); w2.appendChild(kid2); }
+                  if(q) x.querySelectorAll('.say .tx').forEach(e => { const tx = e.textContent; e.textContent = ''; e.append(mark(tx)); }); kid2.appendChild(x); }); w2.appendChild(kid2); }
               kid1.appendChild(w2); }); w1.appendChild(kid1); }
           kids.appendChild(w1); }); w0.appendChild(kids); }
       list.appendChild(w0); });
@@ -54,7 +54,7 @@ const SM = (() => {
       its.forEach((x, n) => { if(d < 3){ const b = el('button', 'sit'); b.style.setProperty('--n', n); const t = el('span', 'st'); t.append(mark(x.t)); b.append(t);
           b.dataset.i = x.i; if(sel[d] === x.i) b.classList.add('on'); if(sel[d] != null && sel[d] !== x.i) b.classList.add('off');
           b.onclick = () => { SND.tick([.85, 1, 1.15][d]); if(sel[d] === x.i){ sel[d] = null; } else sel[d] = x.i; for(let k = d + 1; k < 3; k++) sel[k] = null; ki = null; render(); }; c.appendChild(b); }
-        else { const f = factEl(x.k, n); f.style.setProperty('--d', '0s'); if(QRY) f.querySelectorAll('.say').forEach(e => { const tx = e.textContent; e.textContent = ''; e.append(mark(tx)); }); c.appendChild(f); } });
+        else { const f = factEl(x.k, n); f.style.setProperty('--d', '0s'); if(QRY) f.querySelectorAll('.say .tx').forEach(e => { const tx = e.textContent; e.textContent = ''; e.append(mark(tx)); }); c.appendChild(f); } });
       if(d > 0 && (grewAt < 0 ? false : d > grewAt)) c.classList.add('grow'); box.appendChild(c); }
     place(); wire(grewAt); talk();
     const last = cols().filter(c => c.children.length).pop(); if(last && grewAt >= 0) setTimeout(() => { const r = last.getBoundingClientRect(); if(r.right > innerWidth - 20) S.scrollTo({left: S.scrollLeft + r.right - innerWidth + 40, behavior: reduced ? 'auto' : 'smooth'}); }, 40); }

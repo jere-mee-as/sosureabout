@@ -34,7 +34,11 @@ a{color:inherit;text-decoration-color:var(--dim);text-underline-offset:3px}
 #snd .off{display:none} #snd.muted .on{display:none} #snd.muted .off{display:block}
 .stage{position:fixed;inset:0;display:none;overflow:hidden} .stage.on{display:block}
 .fact{display:block;width:100%;margin:0 0 30px;cursor:pointer;opacity:0;transform:translateY(6px);animation:up .5s ease-out forwards;animation-delay:calc(var(--n,0)*.07s + var(--d,.2s))}
-.fact .say{display:block} .fact .more{display:none;margin:12px 0 4px;padding:10px 0 10px 16px;border-left:2px solid var(--dim);font-size:15.5px;line-height:1.5;text-align:left}
+.fact .say{display:block}
+.cp{display:inline-flex;align-items:center;justify-content:center;vertical-align:-2px;margin-left:8px;width:18px;height:18px;color:var(--dim);opacity:0;transition:opacity .2s,color .2s;cursor:pointer;border-radius:4px}
+.cp svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.fact:hover .cp,.cp:focus-visible{opacity:.6} .cp:hover{opacity:1!important;color:var(--ink)} .cp.ok{opacity:1;color:var(--ink)} .cp.ok svg{display:none} .cp.ok::after{content:"✓";font-size:14px}
+@media (hover:none){.cp{opacity:.4}} .fact .more{display:none;margin:12px 0 4px;padding:10px 0 10px 16px;border-left:2px solid var(--dim);font-size:15.5px;line-height:1.5;text-align:left}
 .fact.open .more{display:block;animation:up .2s ease-out} .fact .more .but{display:block;font-style:italic;color:var(--dim);margin-bottom:3px}
 .fact .more .lim{display:block;color:var(--ink);opacity:.86} .fact .more .srcl{display:block;margin-top:10px;font-size:13px;color:var(--dim)}
 .fact .more .srcl a{color:var(--dim)} .fact .more .srcl a:hover{color:var(--ink)}
@@ -159,7 +163,12 @@ function factEl(k, i){ const b = el('button', 'fact'); b.style.setProperty('--n'
   /* the caveat: set off to the side under "But…", with the source underneath */
   const m = el('span', 'more'); m.append(el('span', 'but', 'But…'), el('span', 'lim', k.l));
   const sl = el('span', 'srcl', 'Source: '); const a = el('a', null, k.src); a.href = k.u; a.target = '_blank'; a.rel = 'noopener'; sl.appendChild(a); m.appendChild(sl);
-  b.append(el('span', 'q', '“' + k.b + '”'), el('span', 'say', k.f), m); b.onclick = e => { if(e.target.closest('a')) return; b.classList.toggle('open'); }; return b; }
+  /* the copy mark sits after the fact and fades in on hover; it copies the fact, its source and the link */
+  const say = el('span', 'say'); say.append(el('span', 'tx', k.f)); const cp = el('span', 'cp'); cp.setAttribute('role', 'button'); cp.tabIndex = 0; cp.title = 'Copy'; cp.setAttribute('aria-label', 'Copy this fact');
+  cp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>';
+  const copy = e => { e.stopPropagation(); e.preventDefault(); try { navigator.clipboard.writeText(k.f + ' (' + k.src + ') ' + k.u).catch(() => {}); } catch(err){} cp.classList.add('ok'); SND.tick(1.5); setTimeout(() => cp.classList.remove('ok'), 1000); };
+  cp.addEventListener('click', copy); cp.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') copy(e); }); say.append(cp);
+  b.append(el('span', 'q', '“' + k.b + '”'), say, m); b.onclick = e => { if(e.target.closest('a,.cp')) return; b.classList.toggle('open'); }; return b; }
 const nrm = x => x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'");
 const LAYER = ['subject', 'part', 'topic', 'fact'];
 let QRY = '';

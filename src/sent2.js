@@ -40,7 +40,7 @@ function makeSent(cfg){
     B.appendChild(el('div', 'lay', only ? ks.length + ' of ' + plural(t.k.length, 'fact') + (ks.length === 1 ? ' mentions “' : ' mention “') + word + '”' : q && !t.k.some(fHit) ? 'its title mentions “' + word + '”; none of its facts do' : plural(t.k.length, 'fact')));
     ks.forEach((k, n) => { const x = factEl(k, n); x.style.setProperty('--d', '0s'); if(q) markIn(x); f.appendChild(x); });
     B.appendChild(f); if(!reduced && !QRY) ks.forEach((k,i) => setTimeout(() => SND.tick(1.05 + i*.05), 30 + i*35)); }
-  function markIn(x){ x.querySelectorAll('.say,.q').forEach(s => { if(s.closest('.more') && s.classList.contains('q')) return; const txt = s.textContent; s.textContent = ''; s.append(mark(txt)); }); }
+  function markIn(x){ x.querySelectorAll('.say .tx,.q').forEach(s => { if(s.closest('.more')) return; const txt = s.textContent; s.textContent = ''; s.append(mark(txt)); }); }
   function filter(q){ QRY = q; head(false); body(); if(!reduced && q) SND.tick(1.6); fhint(''); }
   function enter(){ const first = B.querySelector('.ch'); if(first) first.click(); }
   function choose(x, p){ if(busy) return; busy = true; SND.tick(1.4);
