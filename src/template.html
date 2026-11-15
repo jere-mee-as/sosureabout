@@ -31,6 +31,7 @@ a{color:inherit;text-decoration-color:var(--dim);text-underline-offset:3px}
 .nohits #crypt .row{opacity:0;pointer-events:none}
 .nohit{display:none;position:absolute;left:28px;top:84px;z-index:6;font-size:26px;color:var(--dim)}.nohit button{display:block;font-size:15px;margin-top:10px;color:var(--dim)}.nohit button:hover{color:var(--ink)}.nohits .nohit{display:block}.nohits #wheel .hint,.nohits #fh,
 .nohits #wheel .rot,.nohits #wheel .say1,.nohits #crypt .pre,.nohits #crypt .cf,.nohits #crypt .chint{visibility:hidden}
+mark{background:none;color:inherit;border-bottom:2px solid var(--ink)}
 #fh{position:fixed;top:50px;right:20px;z-index:21;color:var(--dim);font-size:13px;max-width:24em;text-align:right;opacity:0;transition:opacity .2s}#fh.on{opacity:1}
 #find{width:11em}
 #bar svg{width:15px;height:15px;display:block}
@@ -54,7 +55,7 @@ a{color:inherit;text-decoration-color:var(--dim);text-underline-offset:3px}
 #wheel .trail{position:absolute;z-index:6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3;cursor:pointer;transition:left .7s cubic-bezier(.6,0,.2,1),top .7s cubic-bezier(.6,0,.2,1),font-size .7s cubic-bezier(.6,0,.2,1),max-width .7s,color .5s}
 #wheel .trail.up{color:var(--dim)} #wheel .trail:hover{color:var(--ink)}
 #wheel .trail.lab{font-size:13.5px!important;color:var(--dim);cursor:default;opacity:0;transition:opacity .4s .5s}#wheel.read .trail.lab{opacity:1}
-#wheel svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+#wheel #wsvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
 #wheel .arc{fill:none;stroke:var(--faint);stroke-width:1;transition:stroke .3s}#wheel .arc.on{stroke:var(--dim);stroke-dasharray:1 5}
 #wheel .leg{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
 #wheel .joint{fill:var(--bg);stroke:var(--ink);stroke-width:1}
@@ -174,6 +175,10 @@ function factEl(k, i){ const b = el('button', 'fact'); b.style.setProperty('--n'
   b.append(el('span', 'q', '“' + k.b + '”'), say, m); b.onclick = e => { if(e.target.closest('a,.cp')) return; b.classList.toggle('open'); }; return b; }
 const nrm = x => x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'");
 const LAYER = ['subject', 'part', 'topic', 'fact'];
+/* underline the searched words inside a piece of text */
+function gmark(txt){ const f = document.createDocumentFragment(), i = QRY ? nrm(txt).indexOf(QRY) : -1; if(i < 0){ f.append(txt); return f; }
+  const m = document.createElement('mark'); m.textContent = txt.slice(i, i + QRY.length); f.append(txt.slice(0, i), m, txt.slice(i + QRY.length)); return f; }
+function markFact(x){ if(!QRY) return x; x.querySelectorAll('.say .tx,:scope > .q').forEach(e => { const t = e.textContent; e.textContent = ''; e.append(gmark(t)); }); return x; }
 let QRY = '';
 /* search reaches through every layer: a topic counts only if its own name or one of its facts says the words; facts are culled the same way */
 const TXT = P.map(s => s.t.map(t => nrm(t.t + ' ' + t.k.map(k => k.b + ' ' + k.f + ' ' + k.l).join(' '))));
@@ -260,7 +265,7 @@ const W = (() => {
   function build(d){ ringEl[d].innerHTML = ''; let all = lab(d).map((x, i) => [x, i]);
     /* typing narrows the ring you're on to the words that match */
     if(QRY && totalHits()){ all = all.filter(([, i]) => d === 0 ? sHits(i).length : d === 1 ? gHits(o(0), i).length : tHit(o(0), P[o(0)].u[o(1)].t[i])); }
-    map[d] = all.map(x => x[1]); items[d] = all.map(([[t, c]], i) => { const e = el('div', 'it'); e.append(el('span', null, t), el('span', 'c', c));
+    map[d] = all.map(x => x[1]); items[d] = all.map(([[t, c]], i) => { const e = el('div', 'it'); const w = el('span'); w.append(gmark(t)); e.append(w, el('span', 'c', c));
       e.onclick = ev => { ev.stopPropagation(); active = d; if(i === sp[d].f && !sp[d].run){ if(d === 2) read(); } else sp[d].go(i); }; ringEl[d].appendChild(e); return e; });
     sp[d].set(items[d].length, 0); }
   /* a parent's word changes → the rings outside it are rebuilt and fan out from the leg */
@@ -309,7 +314,7 @@ const W = (() => {
     st.getBoundingClientRect(); st.classList.add('read');
     trail.slice(0, 3).forEach((x, d) => { x.style.left = to[d].left + 'px'; x.style.top = to[d].top + 'px'; x.style.fontSize = to[d].fs + 'px'; x.style.maxWidth = to[d].mw + 'px'; });
     const p = $('wread'); p.innerHTML = ''; p.scrollTop = 0; const b = el('button', 'back', '← back to the wheel'); b.onclick = unread;
-    const h = el('h2', 'big', t.t + '?'); p.append(b, h); shownFacts(t).forEach((k,i) => { const f = factEl(k, i); f.style.setProperty('--d', (.5 + i*.05) + 's'); p.appendChild(f);
+    const h = el('h2', 'big', t.t + '?'); p.append(b, h); shownFacts(t).forEach((k,i) => { const f = markFact(factEl(k, i)); f.style.setProperty('--d', (.5 + i*.05) + 's'); p.appendChild(f);
       if(!reduced) setTimeout(() => SND.tick(1.1 + i*.06), 520 + i*70 + 160); }); }
   function unread(){ if(!reading) return; reading = false; $('whint').style.opacity = 1; st.classList.remove('read'); const sr = st.getBoundingClientRect(), old = trail; trail = [];
     old.slice(0, 3).forEach((x, d) => { const rc = items[d][sp[d].f].querySelector('span').getBoundingClientRect(); x.style.left = (rc.left - sr.left) + 'px'; x.style.top = (rc.top - sr.top) + 'px';
@@ -351,7 +356,7 @@ const C = (() => {
   const rowH = () => innerWidth <= 760 ? 46 : 46;
   function fill(D){ D.cyl.innerHTML = ''; let all = lab(D.d).map((t, i) => [t, i]);
     if(QRY && totalHits()){ const d = D.d; all = all.filter(([, i]) => d === 0 ? sHits(i).length : d === 1 ? gHits(o(0), i).length : tHit(o(0), P[o(0)].u[o(1)].t[i])); }
-    D.map = all.map(x => x[1]); D.items = all.map(([t]) => { const e = el('div', 'ci', t + (D.d < 2 ? ',' : '?')); D.cyl.appendChild(e); return e; }); D.s.set(D.items.length, 0); }
+    D.map = all.map(x => x[1]); D.items = all.map(([t]) => { const e = el('div', 'ci'); e.append(gmark(t), D.d < 2 ? ',' : '?'); D.cyl.appendChild(e); return e; }); D.s.set(D.items.length, 0); }
   function draw(D){ const h = rowH(), step = innerWidth <= 760 ? 20 : 13, r = h / (2*Math.tan(step/2*Math.PI/180));
     D.cyl.style.transform = `translateZ(${-r}px)`;
     D.items.forEach((e, i) => { const a = (i - D.s.pos)*step; e.style.transform = `rotateX(${(-a).toFixed(2)}deg) translateZ(${r.toFixed(1)}px)`;
@@ -360,7 +365,7 @@ const C = (() => {
   function hide(){ clearTimeout(showT); cf.classList.remove('on'); }
   /* the lock opens: when every drum has stopped, the facts unfold under the row */
   function settled(){ clearTimeout(showT); showT = setTimeout(() => { if(drums.some(D => D.s.run)) return; show(); }, 260); }
-  function show(){ const si = o(0), t = P[si].t[P[si].u[o(1)].t[o(2)]]; cf.innerHTML = ''; shownFacts(t).forEach((k,i) => cf.appendChild(factEl(k, i))); cf.classList.add('on'); $('chint').style.display = 'none'; }
+  function show(){ const si = o(0), t = P[si].t[P[si].u[o(1)].t[o(2)]]; cf.innerHTML = ''; shownFacts(t).forEach((k,i) => cf.appendChild(markFact(factEl(k, i)))); cf.classList.add('on'); $('chint').style.display = 'none'; }
   function act(d){ active = d; drums.forEach(D => D.box.classList.toggle('act', D.d === d)); if($('crypt').classList.contains('on')) ph('search…'); }
   function filter(q){ const keep = drums[0].map && drums[0].map.length ? o(0) : 0; QRY = q; const D = drums[0]; D.s.quiet = true; fill(D); const j = Math.max(0, D.map.indexOf(keep)); D.s.set(D.items.length, j); D.s.quiet = false;
     focused(0, j); drums.forEach(draw); fhint(searchNote()); settled(); }
