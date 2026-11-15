@@ -6,8 +6,8 @@ const OL = (() => {
     if(QRY){ H.append('Searching for “' + raw + '”'); const g = el('button', 'goback', '← go back'); g.onclick = () => { SND.tick(.8); setQ(''); }; H.append(g); }
     else H.append('So you’re sure about…'); }
   const mark = txt => { const f = document.createDocumentFragment(), i = QRY ? nrm(txt).indexOf(QRY) : -1; if(i < 0){ f.append(txt); return f; } f.append(txt.slice(0, i), el('mark', null, txt.slice(i, i + QRY.length)), txt.slice(i + QRY.length)); return f; };
-  function row(label, count, k, depth, onOpen){ const isOpen = open.has(k);
-    const b = el('button', 'orow d' + depth + (isOpen ? ' open' : '')); b.append(el('span', 'car', isOpen ? '−' : '+')); const t = el('span', 'ot'); t.append(mark(label)); b.append(t); if(count) b.append(el('span', 'oc', count));
+  function row(label, count, k, depth, sg){ const isOpen = open.has(k);
+    const b = el('button', 'orow d' + depth + (isOpen ? ' open' : '')); b.setAttribute('aria-expanded', String(isOpen)); b.append(sgEl(sg)); const t = el('span', 'ot'); t.append(mark(label)); b.append(t); if(count) b.append(el('span', 'oc', count));
     b.onclick = () => { SND.tick(isOpen ? .85 : 1.15); open.has(k) ? open.delete(k) : open.add(k); fresh = isOpen ? null : k; render(); };
     return [b, isOpen]; }
   const searching = () => !!(QRY && totalHits());
@@ -15,13 +15,13 @@ const OL = (() => {
   function render(){ head(); B.innerHTML = ''; const q = searching(); const list = el('div', 'otree');
     if(QRY && !q){ list.appendChild(el('div', 'lay', 'nothing mentions “' + $('find').value.trim() + '”')); B.appendChild(list); return; }
     P.forEach((s, si) => { const sh = q ? sHits(si) : null; if(q && !sh.length) return; const k0 = key(si);
-      const [b0, o0] = row(s.n, q ? plural(sh.length, 'topic') : plural(s.u.length, 'part'), k0, 0); const w0 = el('div', 'onode'); w0.appendChild(b0);
+      const [b0, o0] = row(s.n, q ? plural(sh.length, 'topic') : plural(s.u.length, 'part'), k0, 0, s.sg); const w0 = el('div', 'onode'); w0.appendChild(b0);
       if(o0){ const kids = el('div', 'okids' + (fresh === k0 ? ' fresh' : ''));
         s.u.forEach((u, gi) => { const gh = q ? gHits(si, gi) : null; if(q && !gh.length) return; const k1 = key(si, gi);
-          const [b1, o1] = row(u.n, q ? plural(gh.length, 'topic') : plural(u.t.length, 'topic'), k1, 1); const w1 = el('div', 'onode'); w1.appendChild(b1);
+          const [b1, o1] = row(u.n, q ? plural(gh.length, 'topic') : plural(u.t.length, 'topic'), k1, 1, u.sg); const w1 = el('div', 'onode'); w1.appendChild(b1);
           if(o1){ const kid1 = el('div', 'okids' + (fresh === k1 ? ' fresh' : ''));
             u.t.forEach(ti => { if(q && !tHit(si, ti)) return; const t = s.t[ti], k2 = key(si, gi, ti), ks = shownFacts(t);
-              const [b2, o2] = row(t.t, q && ks.length < t.k.length ? ks.length + ' of ' + plural(t.k.length, 'fact') : plural(t.k.length, 'fact'), k2, 2); b2.dataset.k = k2; const w2 = el('div', 'onode'); w2.appendChild(b2);
+              const [b2, o2] = row(t.t, q && ks.length < t.k.length ? ks.length + ' of ' + plural(t.k.length, 'fact') : plural(t.k.length, 'fact'), k2, 2, t.sg); b2.dataset.k = k2; const w2 = el('div', 'onode'); w2.appendChild(b2);
               if(o2){ const kid2 = el('div', 'okids ofacts' + (fresh === k2 ? ' fresh' : '')); ks.forEach((kf, n) => { const x = factEl(kf, n); x.style.setProperty('--d', '0s');
                   if(q) x.querySelectorAll('.say .tx').forEach(e => { const tx = e.textContent; e.textContent = ''; e.append(mark(tx)); }); kid2.appendChild(x); }); w2.appendChild(kid2);
                 /* facts drop in one by one, and each one bloops as it lands */
@@ -45,15 +45,15 @@ const SM = (() => {
   let sel = [null, null, null], ki = null, drawn = '';
   const cols = () => [...box.querySelectorAll('.scol')];
   function items(d){ if(QRY && !totalHits()) return []; const q = !!QRY;
-    if(d === 0) return P.map((s, si) => ({t: s.n, i: si})).filter(x => !q || sHits(x.i).length);
-    if(d === 1) return sel[0] == null ? [] : P[sel[0]].u.map((u, gi) => ({t: u.n, i: gi})).filter(x => !q || gHits(sel[0], x.i).length);
-    if(d === 2) return sel[1] == null ? [] : P[sel[0]].u[sel[1]].t.map(ti => ({t: P[sel[0]].t[ti].t, i: ti})).filter(x => !q || tHit(sel[0], x.i));
+    if(d === 0) return P.map((s, si) => ({t: s.n, i: si, sg: s.sg})).filter(x => !q || sHits(x.i).length);
+    if(d === 1) return sel[0] == null ? [] : P[sel[0]].u.map((u, gi) => ({t: u.n, i: gi, sg: u.sg})).filter(x => !q || gHits(sel[0], x.i).length);
+    if(d === 2) return sel[1] == null ? [] : P[sel[0]].u[sel[1]].t.map(ti => ({t: P[sel[0]].t[ti].t, i: ti, sg: P[sel[0]].t[ti].sg})).filter(x => !q || tHit(sel[0], x.i));
     return sel[2] == null ? [] : shownFacts(P[sel[0]].t[sel[2]]).map((k, n) => ({k, i: n})); }
   const mark = txt => { const f = document.createDocumentFragment(), i = QRY ? nrm(txt).indexOf(QRY) : -1; if(i < 0){ f.append(txt); return f; } f.append(txt.slice(0, i), el('mark', null, txt.slice(i, i + QRY.length)), txt.slice(i + QRY.length)); return f; };
   function render(){ const key = sel.join('/') + '|' + QRY, was = drawn.split('|')[0].split('/'), grewAt = was.findIndex((v, i) => v !== String(sel[i])); drawn = key;
     box.querySelectorAll('.scol').forEach(c => c.remove());
     for(let d = 0; d < 4; d++){ const its = items(d); const c = el('div', 'scol c' + d); if(!its.length){ box.appendChild(c); continue; }
-      its.forEach((x, n) => { if(d < 3){ const b = el('button', 'sit'); b.style.setProperty('--n', n); const t = el('span', 'st'); t.append(mark(x.t)); b.append(t);
+      its.forEach((x, n) => { if(d < 3){ const b = el('button', 'sit'); b.style.setProperty('--n', n); const t = el('span', 'st'); t.append(mark(x.t)); b.append(sgEl(x.sg), t);
           b.dataset.i = x.i; if(sel[d] === x.i) b.classList.add('on'); if(sel[d] != null && sel[d] !== x.i) b.classList.add('off');
           b.onclick = () => { if(sel[d] === x.i){ sel[d] = null; } else sel[d] = x.i; for(let k = d + 1; k < 3; k++) sel[k] = null; ki = null; render(); }; c.appendChild(b); }
         else { const f = factEl(x.k, n); f.style.setProperty('--d', '0s'); if(QRY) f.querySelectorAll('.say .tx').forEach(e => { const tx = e.textContent; e.textContent = ''; e.append(mark(tx)); }); c.appendChild(f); } });

@@ -20,15 +20,15 @@ function makeSent(cfg){
   function where(si, tis){ const d = el('span', 'hits'); tis.forEach(ti => { const r = el('span', 'hl'); r.append(mark(P[si].t[ti].t)); d.append(r); }); return d; }
   function body(){ B.innerHTML = ''; steps(); const list = el('div', 'choices'); let rows = [];
     const q = QRY && totalHits() ? QRY : '';
-    if(path.length === 0) rows = P.map((s,i) => ({t: s.n, c: plural(s.u.length, 'part'), p: [i], h: q ? sHits(i) : null, si: i}));
-    else if(path.length === 1) rows = P[path[0]].u.map((u,i) => ({t: u.n, c: plural(u.t.length, 'topic'), p: [path[0], i], h: q ? gHits(path[0], i) : null, si: path[0]}));
-    else if(path.length === 2) rows = P[path[0]].u[path[1]].t.map(ti => ({t: P[path[0]].t[ti].t, c: plural(P[path[0]].t[ti].k.length, 'fact'), p: [path[0], path[1], ti], h: q ? (tHit(path[0], ti) ? [ti] : []) : null, si: path[0], ti}));
+    if(path.length === 0) rows = P.map((s,i) => ({sg: s.sg, t: s.n, c: plural(s.u.length, 'part'), p: [i], h: q ? sHits(i) : null, si: i}));
+    else if(path.length === 1) rows = P[path[0]].u.map((u,i) => ({sg: u.sg, t: u.n, c: plural(u.t.length, 'topic'), p: [path[0], i], h: q ? gHits(path[0], i) : null, si: path[0]}));
+    else if(path.length === 2) rows = P[path[0]].u[path[1]].t.map(ti => ({sg: P[path[0]].t[ti].sg, t: P[path[0]].t[ti].t, c: plural(P[path[0]].t[ti].k.length, 'fact'), p: [path[0], path[1], ti], h: q ? (tHit(path[0], ti) ? [ti] : []) : null, si: path[0], ti}));
     else return facts();
     const total = rows.length;
     /* searching culls every layer to the places that mention it */
     if(q) rows = rows.filter(r => r.h && r.h.length); else if(QRY) rows = [];
     B.appendChild(el('div', 'lay', q ? rows.length + ' of ' + plural(total, LAYER[path.length]) + (rows.length === 1 ? ' mentions “' : ' mention “') + $('find').value.trim() + '”' : QRY ? 'nothing mentions “' + $('find').value.trim() + '”' : plural(total, LAYER[path.length]) + (path.length ? ' in ' + words(path).slice(-1)[0] : '')));
-    rows.forEach((r, n) => { const x = el('button', 'ch'); x.style.setProperty('--n', n); const t = el('span', 't'); t.append(mark(r.t)); x.append(t);
+    rows.forEach((r, n) => { const x = el('button', 'ch'); x.style.setProperty('--n', n); const t = el('span', 't'); t.append(mark(r.t)); x.append(sgEl(r.sg), t);
       if(q && r.h && r.h.length && path.length < 2) x.append(el('span', 'c more-c', plural(r.h.length, 'topic') + (r.h.length === 1 ? ' mentions it' : ' mention it')), where(r.si, r.h));
       else if(q && path.length === 2){ const ks = P[r.si].t[r.ti].k.filter(fHit), k = ks.length; x.append(el('span', 'c' + (k ? ' more-c' : ''), k ? plural(k, 'fact') + (k === 1 ? ' mentions it' : ' mention it') : 'its title mentions it'));
         if(k){ const d = el('span', 'hits'); ks.forEach(f => { const r = el('span', 'hl'); r.append('“', mark(f.b), '”'); d.append(r); }); x.append(d); } }

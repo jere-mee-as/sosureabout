@@ -21,7 +21,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 a{color:inherit;text-decoration-color:var(--dim);text-underline-offset:3px}
 .q{display:block;color:var(--dim);font-size:13.5px;line-height:1.35}
 #bar{position:fixed;top:0;right:0;z-index:20;display:flex;align-items:center;gap:18px;padding:18px 20px 14px 28px;font-size:14px;color:var(--dim);background:var(--bg);border-bottom-left-radius:14px}
-#bar .sw button{color:var(--dim)} #bar .sw button+button::before{content:"·";margin:0 8px;color:var(--dim)}
+#bar .sw button{color:var(--dim)} #bar .sw{display:flex;align-items:center;gap:4px} .sw .lic{display:grid;place-items:center;width:34px;height:30px;border-radius:8px} .sw .lic svg{width:20px;height:20px} .sw .lic[aria-pressed=true]{color:var(--ink);background:color-mix(in srgb,var(--ink) 9%,transparent)}
+/* sigils: one character in a fixed slot left of every subject, part and topic, drawn in the text colour so it holds up in every theme */
+.sg{display:inline-block;width:1.45em;flex:none;text-align:center;color:var(--ink);font-style:normal;font-weight:400;font-variant-emoji:text;line-height:inherit}
+.sl .choices .ch{padding-left:1.75em} .sl .ch>.sg{position:absolute;left:0;top:9px;line-height:1.25;font-size:22px;width:1.3em}
+#stem .sit .sg{margin-right:.35em;width:1.3em}
 #bar .sw button[aria-pressed=true],#bar button:hover{color:var(--ink)}
 #find{width:8em;border:0;border-bottom:1px solid var(--faint);background:none;color:var(--ink);font:inherit;padding:2px 0;outline:none}
 #find:focus{border-color:var(--ink)}
@@ -70,7 +74,7 @@ mark{background:none;color:inherit;border-bottom:2px solid var(--ink)}
 #outl .ocollapse{color:var(--dim);font-size:13.5px;margin-bottom:12px} #outl .ocollapse:hover{color:var(--ink)}
 #outl .orow{display:flex;align-items:baseline;gap:10px;width:100%;padding:5px 0;text-align:left;transition:opacity .2s}
 #outl .orow:hover .ot{opacity:.6} #outl .d0{font-size:22px} #outl .d1{font-size:19px} #outl .d2{font-size:17px}
-#outl .car{width:14px;flex:none;color:var(--dim);font-size:15px} #outl .oc{color:var(--dim);font-size:13px;white-space:nowrap}
+ #outl .oc{color:var(--dim);font-size:13px;white-space:nowrap}
 #outl .has>.onode>.orow:not(.open){opacity:.36} #outl .has>.onode>.orow:not(.open):hover{opacity:.8}
 #outl .okids{margin:2px 0 8px 6px;padding-left:22px;border-left:1px solid var(--faint)} #outl .okids.fresh{animation:up .22s ease-out}
 #outl .ofacts{padding-top:8px;max-width:40em} #outl .ofacts .fact{margin-bottom:20px}
@@ -99,7 +103,7 @@ mark{background:none;color:inherit;border-bottom:2px solid var(--ink)}
   .credit{top:47px;bottom:auto;right:12px;font-size:12px;padding:2px 4px;background:none;z-index:21} .credit img{width:16px;height:16px}
   #themes{left:12px;right:12px;top:92px;padding:10px}
   #outl .wrap,#sent .wrap{padding-left:20px;padding-right:20px}
-  #outl .orow{display:block;position:relative;padding:7px 0 7px 24px;line-height:1.3} #outl .orow .car{position:absolute;left:0;top:7px}
+  #outl .orow{display:block;position:relative;padding:7px 0 7px 32px;line-height:1.3} #outl .orow .sg{position:absolute;left:0;top:7px}
   #outl .orow .oc{margin-left:8px} #outl .d0{font-size:20px} #outl .d1{font-size:18px} #outl .d2{font-size:16.5px}
   #stem .sit.off{visibility:hidden} #stem .sit{padding:9px 0}
 }
@@ -133,6 +137,7 @@ function factEl(k, i){ const b = el('button', 'fact'); b.style.setProperty('--n'
 const nrm = x => x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'");
 const LAYER = ['subject', 'part', 'topic', 'fact'];
 /* underline the searched words inside a piece of text */
+const sgEl = x => el('span', 'sg', x ? x + '\uFE0E' : '');
 function gmark(txt){ const f = document.createDocumentFragment(), i = QRY ? nrm(txt).indexOf(QRY) : -1; if(i < 0){ f.append(txt); return f; }
   const m = document.createElement('mark'); m.textContent = txt.slice(i, i + QRY.length); f.append(txt.slice(0, i), m, txt.slice(i + QRY.length)); return f; }
 function markFact(x){ if(!QRY) return x; x.querySelectorAll('.say .tx,:scope > .q').forEach(e => { const t = e.textContent; e.textContent = ''; e.append(gmark(t)); }); return x; }
@@ -196,7 +201,9 @@ let mode = 'outl'; try { const m = localStorage.getItem('uf-layout3'); if(m === 
 const real = () => mode, MOD = {sent: T, outl: OL, stem: SM};
 function show(m){ if(m) mode = m; fhint(''); try { localStorage.setItem('uf-layout3', mode); } catch(e){} const r = real();
   ['sent','outl','stem'].forEach(k => $(k).classList.toggle('on', k === r)); MOD[r].shown(); if(typeof applyQ === 'function') applyQ();
-  const sw = $('sw'); sw.innerHTML = ''; [['outl', 'outline'], ['sent', 'sentence'], ['stem', 'stems']].forEach(([k, n]) => { const b = el('button', null, n); b.setAttribute('aria-pressed', String(k === real())); b.onclick = () => show(k); sw.appendChild(b); }); }
+  /* the layouts are three small line drawings: an indented list, lines of text, and a stem that forks */
+  const sw = $('sw'); sw.innerHTML = ''; [['outl', 'Outline'], ['sent', 'Sentence'], ['stem', 'Stems']].forEach(([k, n]) => { const b = el('button', 'lic'); b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + LICON[k] + '</svg>'; b.setAttribute('aria-label', n); b.title = n; b.setAttribute('aria-pressed', String(k === real())); b.onclick = () => show(k); sw.appendChild(b); }); }
+const LICON = {outl: '<path d="M3 5h18M8 12h13M8 19h13M4.5 8v11M4.5 12H6.5M4.5 19H6.5"/>', sent: '<path d="M3 6.5h18M3 12h18M3 17.5h11"/>', stem: '<path d="M3 12h4M7 12c4 0 5-6.5 9-6.5h5M7 12h14M7 12c4 0 5 6.5 9 6.5h5"/>'};
 let lastSmall = small(); addEventListener('resize', () => { if(small() !== lastSmall){ lastSmall = small(); show(); } });
 T.start(); OL.start(); SM.start(); show();
 const IDX = []; P.forEach((s,si) => s.u.forEach((u,gi) => u.t.forEach(ti => IDX.push({p:[si,gi,ti], n:s.t[ti].t, low:nrm(s.t[ti].t), k:s.t[ti].k.map(k => nrm(k.b + ' ' + k.f))}))));

@@ -1,0 +1,579 @@
+# Sigils. Subject (no indent), part (2 spaces), topic (4 spaces).
+# Subjects and parts are distinct site-wide; a topic differs from its part, its subject and its siblings.
+⚕ Bioethics, medicine and health
+  ◐ Abortion and end of life
+    ♀ Abortion
+    ☠ Definition of death
+    ☽ Euthanasia and assisted dying
+    ⚲ Selective abortion for sex or disability
+  ⚇ Bodies and consent
+    ∿ Deaf culture and cochlear implants
+    ✂ Infant circumcision
+    ♡ Organ markets and paid donation
+    ☿ Surgery on intersex infants
+  ℞ Diet, drugs and alternative medicine
+    ⚗ Alternative medicine and homeopathy
+    ♨ Nutrition science disputes (fats, seed oils, sugar)
+    ◯ Obesity, weight-loss drugs and fat acceptance
+    ℥ Opioid prescribing
+    ▽ Raw milk
+    ≋ Water fluoridation
+  ❂ Embryos, genes and reproduction
+    ⊂ Commercial surrogacy
+    ⁂ Embryonic stem cell research
+    Ξ Eugenics
+    ◫ Human cloning
+    ≀ Human gene editing and designer babies
+    ⊙ IVF and embryo screening
+    ∘ Moral status of embryos
+  Ψ Mental health
+    ∞ Autism: neurodiversity versus cure
+    ⊠ Involuntary psychiatric commitment
+    ✺ Psychedelic-assisted therapy
+    ⊛ Psychiatric medication and overdiagnosis
+  ✚ The healthcare system
+    ♞ Animal testing
+    ⊘ Conscientious objection by medical staff
+    $ Drug pricing and pharmaceutical patents
+    ⅓ Healthcare rationing
+    ⟳ Radical life extension
+    ⚡ Right-to-try and experimental treatments
+  ✱ Vaccines and COVID
+    ⌂ COVID lockdowns, masks and school closures
+    ? COVID origins
+    ⚠ Gain-of-function research
+    ! Vaccine mandates
+    ✓ Vaccine safety claims
+⚖ Crime, justice and policing
+  § Courts and sentencing
+    ¢ Cash bail
+    Ø Jury nullification
+    ½ Juvenile sentencing
+    Ⅲ Mandatory minimums and three-strikes laws
+    ⇆ Plea bargaining
+    → Progressive prosecutors and non-prosecution policies
+    ∴ Reliability of forensic science
+    ? The insanity defense
+  # Crime data and special laws
+    ⊖ Civil asset forfeiture
+    % Crime statistics and demographics
+    ≠ Hate crime laws
+    ⛺ Homelessness and encampment policy
+    ▤ Sex offender registries
+  ❀ Drugs
+    ⊘ Drug legalization and decriminalization
+    ✳ Marijuana legalization
+    ✕ The war on drugs
+  ⊕ Guns and self-defense
+    ∵ Causes of gun violence
+    ▣ Stand-your-ground and castle doctrine
+    ☇ Vigilantism
+  ⛨ National security
+    ⊡ Guantanamo and indefinite detention
+    ⛓ Torture and coercive interrogation
+    ♪ Whistleblowers and leakers
+  ☆ Policing
+    ⊟ Defunding or abolishing police
+    ✦ Police use of force and reform
+    ◎ Predictive policing
+    Ω Qualified immunity
+    ⊣ Stop-and-frisk
+  ▥ Prisons and punishment
+    ⚰ Death penalty
+    ▦ Mass incarceration
+    ⊗ Prison abolition
+    ⊏ Private prisons
+    ⟲ Restorative justice
+    ⇌ Retribution versus rehabilitation
+    ▫ Solitary confinement
+¤ Economics and labor
+  ∑ Big ideas
+    ☭ Capitalism versus socialism
+    ↘ Degrowth
+    ♛ The existence of billionaires
+    ≷ Wealth and income inequality
+  ⌂ Housing
+    ⊓ Rent control
+    ▩ Zoning and NIMBY versus YIMBY
+  € Taxes, debt and money
+    ↓ Austerity
+    Ⓕ Central banking and the Federal Reserve
+    ₿ Cryptocurrency
+    ⚱ Inheritance and estate taxes
+    − National debt and deficit spending
+    ↑ Wealth taxes and progressive taxation
+  ⚓ Trade and business
+    ⚒ Antitrust and Big Tech breakups
+    ☂ Corporate bailouts
+    ♠ Gambling and sports betting legalization
+    ♁ Globalization and outsourcing
+    ⇢ Immigration’s effect on wages and jobs
+    ⊜ Price controls
+    ⊏ Privatization of public services
+    ⇄ Tariffs and free trade
+  ⊹ Welfare and healthcare
+    § Social Security and entitlement reform
+    ✎ Student debt forgiveness
+    ∀ Universal basic income
+    ✚ Universal or single-payer healthcare
+    ⚒ Welfare and work requirements
+  ⚙ Work and wages
+    ♕ Executive pay
+    ¢ Minimum wage levels
+    ⌂ Remote work
+    ✄ Sweatshops and global labor standards
+    ↯ The gig economy and worker classification
+    ⁺ Tipping culture
+    ✊ Unions and right-to-work laws
+✎ Education and academia
+  ❝ Campus speech and politics
+    ⊘ Academic boycotts
+    ❞ Campus free speech and deplatforming
+    ◑ Ideological diversity among faculty
+    ⚠ Trigger warnings and safe spaces
+  ₵ College money
+    ◷ Cost and value of college
+    ⛁ Elite university endowments
+    ◒ Paying college athletes
+  ⊢ Getting into college
+    ⚜ Legacy admissions
+    ◧ Race-conscious admissions
+  ¶ How academia works
+    Σ Fraternities and hazing
+    Ⓐ Grade inflation
+    ⊜ Peer review and academic publishing
+    ⚓ Tenure
+    ❡ Value of the humanities
+  ▦ Running a school
+    ⚙ AI use and cheating
+    ★ Gifted programs and tracking
+    ✐ Homework and school uniforms
+    ☎ Phones in schools
+    ⟂ School discipline and corporal punishment
+    ☑ Standardized testing
+    ∪ Teacher unions
+  ⑂ School choice
+    ⊏ Charter schools
+    ⌂ Homeschooling
+    ✟ Public funding for religious schools
+    ▭ School choice and vouchers
+  ℵ What schools teach
+    ç Bilingual education
+    ⊠ Curriculum control and book bans
+    ♙ Parental rights in schooling
+    ɸ Phonics versus whole-language reading instruction
+    ❧ The literary canon and what to teach
+☘ Environment and energy
+  ☀ Climate change
+    ☄ Climate activism tactics
+    ° Climate change: severity and attribution
+    ⇢ Climate migration
+    ⇄ Climate reparations and loss-and-damage funds
+    ☁ Geoengineering
+    ∷ Overpopulation
+  ♺ Climate policy
+    ⊖ Carbon offsets
+    ∅ Carbon taxes and net-zero targets
+  ϟ Energy
+    ↯ Electric vehicle mandates
+    ⛽ Fossil fuel phase-out
+    ⇣ Fracking
+    ♨ Gas stoves
+    ☢ Nuclear power
+    ═ Pipeline projects
+    ☼ Reliability and cost of renewables
+    ⟁ Wind and solar farm siting
+  ⚘ Farming and food
+    ▤ Factory farming
+    ♉ Meat consumption and climate
+    ☣ Pesticides and glyphosate
+  ⛰ Land, water and mining
+    ⛏ Critical-mineral and deep-sea mining
+    ⊓ Dams and river restoration
+    ♣ Deforestation versus development
+    ⊘ Plastic bans
+    ⊥ Public land use and drilling
+    ∿ Water rights
+  ❦ Wildlife
+    ✗ Culling invasive species
+    ☙ Endangered species protections
+    ➶ Hunting and trophy hunting
+    ≈ Whaling
+    ☾ Wolf and predator reintroduction
+    ▥ Zoos and aquariums
+⚥ Gender, sexuality and family
+  ♡ Bodies and dating
+    ◊ Beauty standards and body positivity
+    ⚭ Hookup culture and dating norms
+  ⚢ Gay rights
+    ⚣ Adoption by same-sex couples
+    ↻ Conversion therapy
+    ⛦ Drag performances and children
+    ∾ LGBTQ content in schools
+    ⚭ Same-sex marriage
+  ⚭ Marriage, kids and family
+    ⊘ Choosing not to have children
+    ↘ Declining birth rates and pronatalism
+    ÷ No-fault divorce
+    ⁂ Polygamy and polyamory
+    ⊣ Spanking and physical discipline
+    ⌂ Stay-at-home versus working parents
+  ⚤ Men and women
+    ♀ Feminism and its internal disputes
+    ≶ Gender pay gap: size and causes
+    ¼ Gender quotas
+    ♂ Masculinity and “toxic masculinity”
+    ⚲ Men’s rights and custody bias
+    # #MeToo and due process
+    ≠ Sex differences in aptitude and behavior
+    ⚔ Women in combat roles
+  ⚖ Sex and the law
+    ⑱ Age-of-consent laws
+    ⊝ Contraception access
+    ✗ Pornography
+    ✎ Sex education
+    ◈ Sex work and prostitution law
+  ⚧ Transgender issues
+    ℞ Gender medicine for minors
+    ∂ Pronouns and compelled speech
+    ≟ Sex versus gender: definitions
+    ⊓ Single-sex spaces and bathrooms
+    ⚐ Transgender athletes in sex-segregated sport
+    ✓ Transgender rights and legal recognition
+⌛ History and memory
+  ☭ Communism and dictatorship
+    ☼ Argentina’s Dirty War and Peronism
+    ⚡ Cold War coups and interventions in Latin America
+    † Communism’s record and death toll
+    ♜ Franco and Spain’s memory laws
+    ★ Legacies of Stalin and Mao
+    ☆ Soviet nostalgia
+  △ Conspiracy theories
+    ◬ Conspiracy theories about historical events
+    ⊕ JFK assassination theories
+  ♔ Empire and colonialism
+    ▚ Apartheid’s legacy
+    ♚ Churchill’s legacy
+    ∅ Colonial-era famines (Ireland, Bengal)
+    ⚓ Legacy of colonialism and empire
+    ÷ Partition of India
+  ◌ Genocide and dispossession
+    Ա Armenian genocide recognition
+    ⚷ The Nakba and 1948
+  ▲ Monuments and museums
+    ⇠ Repatriation of museum artifacts
+    ⊥ Statue removal and renaming
+  ⛓ The Americas and slavery
+    ⛵ Columbus and European colonization of the Americas
+    ✠ Confederate monuments and the Lost Cause
+    ➶ Framing the treatment of Native Americans as genocide
+    ✎ How slavery is taught and remembered
+    ✒ The American founders and slavery
+  ☍ Wars and long arguments
+    ⌚ Judging historical figures by present standards
+    ✠ The Crusades and the Inquisition
+    ⚘ Vietnam War
+  Ⅱ World War II
+    ✈ Allied bombing of German cities
+    ☢ Hiroshima and Nagasaki
+    ✡ Holocaust denial and memory laws
+    ⊡ Japanese American internment
+    ⛩ Japanese wartime atrocities and textbook disputes
+☕ Lifestyle, food, sport and everyday life
+  ♘ Animals
+    ♉ Bullfighting
+    ✂ Declawing, ear cropping and tail docking
+    ⚈ Dog breed bans
+    ⚘ Fur and leather
+    ♞ Horse and greyhound racing
+    ♧ Veganism and eating meat
+  ⊞ Cities, homes and travel
+    ⇋ Cars versus bikes and transit in cities
+    ✷ Fireworks
+    ⊓ Homeowners’ associations
+    ▭ Open-plan offices
+    ✈ Reclining airplane seats
+    ⚿ Renting versus owning
+    ⛱ Short-term rentals and overtourism
+  ♨ Food and health
+    ♈ Astrology
+    ✄ Cosmetic surgery
+    ⚗ Diet wars (keto, carnivore, plant-based)
+    ⚘ Organic food
+  ☺ Kids and family
+    ⊡ Posting children online
+    ⚭ Taking a spouse’s surname
+    ❄ Telling children about Santa Claus
+  ♛ Money and luxury
+    ♥ Billionaire philanthropy
+    ⚇ Fast fashion
+    ✈ Private jets and luxury emissions
+  ⚀ Petty wars
+    ◐ Daylight saving time
+    ↔ Metric versus imperial units
+    △ Pineapple on pizza
+    ⇥ Tabs versus spaces
+    , The Oxford comma
+  ⚽ Sport
+    ✪ Combat sports, football and brain injury
+    ◯ Cost of hosting the Olympics and World Cup
+    ⚗ Doping in sport
+    ▶ Video review in sport
+  ♦ Vices and taxes
+    ⊻ Alcohol regulation
+    ∿ Smoking and vaping regulation
+    ⊚ Sugar and soda taxes
+❝ Media, speech and culture
+  ✦ Art, celebrity and entertainment
+    ★ Celebrity and athlete activism
+    ✂ Censorship of art and obscenity
+    © Copyright, piracy and fair use
+    ☺ Offensive comedy
+    ◐ Representation and casting in film and TV
+    ✄ Separating the art from the artist
+    ♬ Song lyrics as criminal evidence
+    ☠ True-crime entertainment
+    ◰ Value of modern and conceptual art
+    ⚔ Violence in media
+  ❞ Free speech
+    ✕ Cancel culture
+    ⚤ Inclusive and gender-neutral language
+    ∅ Limits of free speech and hate speech laws
+    ☹ Political correctness and “woke”
+    ∞ Tolerating the intolerant
+  ✉ News and misinformation
+    ? Anonymous sources and journalism ethics
+    ⊘ Banning foreign-owned apps
+    ≷ Media bias
+    ✓ Misinformation and fact-checking
+    ⊙ Platforming conspiracy theorists and extremists
+    ◘ Public broadcasting funding
+  ⊙ Privacy and the internet
+    ◪ Doxxing and online anonymity
+    ◉ Influencer culture
+    ◎ Paparazzi and celebrity privacy
+∴ Philosophy and ethics
+  ∥ Justice and society
+    ÷ Distributive justice
+    ⊿ Individualism versus collectivism
+    ⇔ Liberty versus equality
+    ⇧ Meritocracy
+    ⊏ Paternalism and personal autonomy
+    ¶ Property rights and whether taxation is theft
+  ∅ Life and death
+    ⊘ Antinatalism
+    ☽ Death and the afterlife
+    ∄ Meaning of life and nihilism
+  ψ Mind and self
+    ⇢ Free will versus determinism
+    ◉ Nature of consciousness
+    ⇋ Nature versus nurture
+    ⊕ Personal identity
+    ▣ Simulation hypothesis
+  ≡ What’s right and true
+    ⊠ Consensual acts that violate deep taboos
+    ⇄ Consequentialism versus deontology
+    ≈ Cultural relativism versus universal human rights
+    ≠ Lying and permissible deception
+    ⚂ Moral luck and desert
+    ⊤ Moral realism versus relativism
+    ∋ Objective truth and postmodernism
+    ⊢ Scientism and the limits of science
+  → Who we owe
+    ♞ Animal rights and speciesism
+    ∑ Effective altruism
+    ⊷ Obligations to distant strangers
+    ∞ Obligations to future generations and longtermism
+⚑ Politics and governance
+  ♖ Courts and the presidency
+    ⚐ January 6 and how to characterize it
+    ♚ Presidential immunity and executive power
+    ⊞ Supreme Court expansion and reform
+    ⌛ Term limits
+    ⌚ The filibuster
+  ☑ Elections and voting
+    $ Campaign finance and money in politics
+    ! Compulsory voting
+    ⚠ Election integrity and fraud claims
+    Ⓔ Electoral College
+    ⊘ Felon and prisoner voting rights
+    ∿ Gerrymandering
+    ⇋ Lobbying and the revolving door
+    ⑯ Lowering the voting age
+    ⊡ Voter ID and ballot access
+  ◉ Guns, surveillance and the draft
+    ⊕ Gun control and the Second Amendment
+    ◎ Mass surveillance and privacy
+    ⚔ Military conscription
+  ★ Ideologies and movements
+    ⊛ Democracy versus technocracy or rule by experts
+    ♔ Monarchy
+    ♁ Nationalism and patriotism
+    ◉ Polarizing leaders and their legacies
+    ⚇ Populism
+  ¡ Protest and dissent
+    ✕ Civil disobedience and political violence
+    ⚐ Flag and anthem protests
+  ◫ States and self-rule
+    ⊕ DC and Puerto Rico statehood
+    ⊞ Federalism versus central authority
+    ⊣ Secession and the right to self-determination
+    ⊚ Size and role of government
+⇋ Race, ethnicity and immigration
+  ⊜ Affirmative action and DEI
+    ⇧ Affirmative action
+    ◑ Colorblindness versus race-consciousness
+    ⊕ Diversity, equity and inclusion programs
+  ⊘ Antisemitism, Islamophobia and caste
+    ☰ Caste discrimination
+    ✡ Defining antisemitism
+    ⇶ Ethnic nationalism
+    ☪ Islamophobia
+  ⊂ Assimilation and native rights
+    ⊆ Assimilation versus multiculturalism
+    ⛺ Indigenous land rights and sovereignty
+    ä Official-language and English-only laws
+  ◑ Culture and representation
+    ◐ Blackface and race in casting
+    ⇆ Cultural appropriation
+    ⚑ Native American mascots and team names
+    ⊗ Racial slurs and who may use them
+    ⇄ Transracial adoption
+  ⇥ Immigration and borders
+    ⊕ Birthright citizenship
+    ⊓ Border security and walls
+    ⇠ Deportation and enforcement
+    ∅ Illegal immigration and amnesty
+    ∑ Immigration levels
+    ⚐ Refugee and asylum policy
+    ⌂ Sanctuary cities
+  ∵ Racism and its causes
+    ∴ Critical race theory
+    ⇉ Demographic change and “replacement” rhetoric
+    ≶ Group differences in test scores and outcomes
+    ◎ Racial profiling
+    ⊛ Reparations for slavery
+    ⊞ Systemic racism: extent and causes
+    ◽ White privilege
+† Religion
+  ✟ Church and state
+    ☿ Creationism and evolution in classrooms
+    ✝ Prayer and religion in public schools
+    ⊘ Religious exemptions from general laws
+    ✠ Religious symbols on public property
+    ∥ Separation of church and state
+    ⊄ Tax exemptions for religious bodies
+  ⚕ Faith versus medicine and animals
+    ✚ Faith healing and medical care for children
+    ☾ Ritual animal slaughter
+  ☉ God and belief
+    ⊘ Atheism versus faith
+    ∃ Existence of God
+    ∪ Religious pluralism versus exclusive truth claims
+    ✎ Scriptural literalism
+    ↘ Secularization: decline or transformation
+    ⊸ Whether morality requires religion
+  ♱ Inside the churches
+    ⚠ Clergy abuse scandals and institutional accountability
+    ♀ Ordination of women
+    ♚ Papal authority and church reform
+    ⚢ Religious teaching on homosexuality
+  ☪ Islam in the West
+    ☾ Islam and its place in Western societies
+    ⚖ Sharia and secular law
+    ⚔ Sunni and Shia sectarian divides
+    ⊝ Veil and religious-dress bans
+  ↶ Leaving, mocking and spreading faith
+    ↩ Apostasy and leaving a faith
+    ☺ Blasphemy and satire of religious figures
+    ◬ Cults and new religious movements
+    ⇢ Proselytizing and missionary work
+  ✙ Religious nationalism
+    ✝ Christian nationalism
+    ॐ Hindu nationalism
+⚛ Science and technology
+  ❖ Artificial intelligence
+    ⚙ AI and job displacement
+    ◉ AI consciousness and moral status
+    ⚠ AI existential risk and regulation
+    © AI-generated art, training data and copyright
+    ⊗ Algorithmic bias
+    ⊕ Autonomous weapons
+    ⛟ Self-driving cars and liability
+  ⌘ Big Tech and the internet
+    ♛ Big Tech power
+    ≡ Net neutrality
+    ⚑ Platform liability and content moderation
+    ⚒ Right to repair
+  ☄ Enhancement and space
+    ⚡ Brain-computer interfaces
+    ♁ Space exploration funding and colonization
+    ⊕ Transhumanism and human enhancement
+  ⚗ Food and biotech
+    ♺ De-extinction
+    ≀ Genetically modified organisms
+    ⊛ Lab-grown meat
+  ≀ Genes and the mind
+    ⇝ Evolutionary psychology
+    % Heritability of intelligence and behavior
+  ▭ Kids and screens
+    ◷ Screen time and children
+    ☹ Social media and teen mental health
+    ⚔ Video games and violence
+  ◎ Privacy and surveillance
+    ◉ Data privacy and surveillance capitalism
+    ◪ Deepfakes and synthetic media
+    ⚿ Encryption backdoors
+    ☺ Facial recognition
+  ⊨ Trust in science
+    ψ Interpretations of quantum mechanics
+    ⟲ Replication crisis and trust in science
+    ≡ Scientific consensus and dissent
+    ∿ Testability of string theory
+    ⊙ UFOs and unidentified aerial phenomena
+⚔ War, foreign policy and geopolitics
+  ✪ America abroad
+    ♛ American hegemony and exceptionalism
+    ⊘ Effectiveness of sanctions
+    $ Foreign aid
+    ⚕ Humanitarian intervention
+    ⇄ Isolationism versus interventionism
+    ✈ US military interventions
+  ☯ China and Asia
+    ⛰ Kashmir
+    ◒ North and South Korea
+    ≈ South China Sea claims
+    ◐ Taiwan and China
+    ☸ Tibet, Xinjiang and Hong Kong
+  ⚐ Independence movements
+    ✕ Catalan, Scottish and Quebec independence
+    ≋ Falklands / Malvinas
+    ☘ Northern Ireland
+    ☼ Western Sahara
+  ☾ Israel and the Middle East
+    ☢ Iran’s nuclear program
+    ⊟ Israel and Palestine
+    ⊿ Kurdish statehood
+  ♜ Russia and Europe
+    ⊕ Cyprus
+    ★ European integration and Brexit
+    ⊞ Kosovo
+    ⛰ Nagorno-Karabakh
+    ⊛ NATO expansion
+    ⊠ Russia and Ukraine
+    ⊿ Status of Crimea
+  ✶ The Americas
+    ★ Cuba embargo
+    ⛽ Venezuela
+  ✈ Weapons and ways of war
+    $ Arms sales
+    ⊡ Cyberwarfare and state espionage
+    ⇣ Drone strikes and targeted killing
+    ⚖ Just war theory
+    ≡ Military spending
+    ☢ Nuclear deterrence and disarmament
+    ♟ Private military contractors
+  ⁂ Words and institutions
+    ? Defining terrorism
+    ⊕ Legitimacy and reform of the United Nations
+    ∑ Use of the word “genocide” for ongoing conflicts
